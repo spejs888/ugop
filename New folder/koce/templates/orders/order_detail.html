@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="order-header">
+    <h1>Нарачка #{{ order.id }}</h1>
+    <div class="order-actions">
+      <a class="btn" href="{% url 'print_fiscal' order.id %}">Печати Фискална</a>
+      <a class="btn" href="{% url 'print_cash' order.id %}">Печати Готовина</a>
+      {% if user.is_staff %}
+        <a class="btn btn-admin" href="{% url 'admin_dashboard' %}">Админ панел</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <p>Маса: <a href="{% url 'table_view' order.table_number %}">{{ order.table_number }}</a></p>
+  <p>Келнер: {{ order.waiter.username }}</p>
+
+  <div class="items">
+    <h2>Ставки</h2>
+    {% if items %}
+      <ul>
+        {% for item in items %}
+          <li>{{ item.product.name }} x {{ item.quantity }} = {{ item.total_item_price }}
+              {% if user.is_staff %}
+                <form method="post" action="{% url 'remove_item' order.id item.id %}" style="display:inline">
+                  {% csrf_token %}
+                  <button type="submit">Отстрани</button>
+                </form>
+              {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Нема ставки.</p>
+    {% endif %}
+  </div>
+
+  <div class="add-item">
+    <h3>Додај ставка</h3>
+    <form method="post" action="{% url 'add_item' order.id %}">
+      {% csrf_token %}
+      <label for="product">Продукт:</label>
+      <select id="product" name="product_id">
+        {% for p in products %}
+          <option value="{{ p.id }}">{{ p.name }} ({{ p.price }})</option>
+        {% endfor %}
+      </select>
+      <label for="quantity">Количина:</label>
+      <input id="quantity" name="quantity" type="number" min="1" value="1">
+      <button type="submit">Додај</button>
+    </form>
+  </div>
+
+  <div class="bill">
+    <h3>Пресметка</h3>
+    <p>Промет: {{ subtotal }}</p>
+    <p>Попуст: {{ discount_applied }}</p>
+    <p>ДДВ ({{ tax_percent }}%): {{ tax_amount }} — (го плаќа газдата)</p>
+    <p><strong>Вкупно: {{ final_total }}</strong></p>
+  </div>
+{% endblock %}

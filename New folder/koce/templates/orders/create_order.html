@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Креирај Нарачка</h1>
+  <form method="post">
+    {% csrf_token %}
+    <label for="table_number">Број на маса:</label>
+    <input id="table_number" name="table_number" type="number" min="1" required>
+    <button type="submit">Креирај</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Маса {{ table_number }}</h1>
+  <p>Вкупно ставки: {{ total_items }}</p>
+  <p>Вкупно (со ДДВ и попуст): {{ total_for_table }}</p>
+
+  {% if orders_data %}
+    <ul>
+      {% for data in orders_data %}
+        <li>
+          Нарачка #{{ data.order.id }} — Статус: {{ data.order.get_status_display }} — Вкупно: {{ data.final_total }}
+          <ul>
+            {% for it in data.order.items.all %}
+              <li>{{ it.product.name }} x {{ it.quantity }} = {{ it.total_item_price }}</li>
+            {% endfor %}
+          </ul>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Нема нарачки за оваа маса.</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Менџерски извештај</h1>
+  <p>Вкупен приход (платени): {{ revenue }}</p>
+  <h2>Платени нарачки</h2>
+  <ul>
+    {% for o in paid_orders %}
+      <li>Нарачка #{{ o.id }} - Маса {{ o.table_number }} - {{ o.updated_at }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

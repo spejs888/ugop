@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Кујна - Главни и Салати</h1>
+  <ul>
+    {% for it in items %}
+      <li>Нарачка #{{ it.order.id }}: {{ it.product.name }} x {{ it.quantity }}</li>
+    {% endfor %}
+  </ul>
+  <button onclick="window.print()">Печати</button>
+{% endblock %}

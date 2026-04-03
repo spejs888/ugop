@@ -1,0 +1,11 @@
+body{font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;background:#f6f6f6;color:#222}
+header{background:#1f2937;color:#fff;padding:12px 20px}
+header nav a{color:#fff;margin-right:10px;text-decoration:none}
+.container{max-width:1000px;margin:24px auto;padding:16px;background:#fff;border-radius:8px}
+.order-header{display:flex;justify-content:space-between;align-items:center}
+.order-actions .btn{background:#2563eb;color:#fff;padding:8px 12px;border-radius:6px;text-decoration:none;margin-left:6px}
+.btn-admin{background:#ef4444}
+.items ul{list-style-type:none;padding:0}
+.items li{padding:6px 0;border-bottom:1px solid #eee}
+.add-item form, .bill{margin-top:12px}
+@media(max-width:600px){.order-header{flex-direction:column;align-items:flex-start}.order-actions .btn{margin-top:8px;margin-left:0}}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Готовинска сметка — Нарачка #{{ order.id }}</h1>
+  <ul>
+    {% for it in order.items.all %}
+      <li>{{ it.product.name }} x {{ it.quantity }} = {{ it.total_item_price }}</li>
+    {% endfor %}
+  </ul>
+  <p>Субтотал: {{ subtotal }}</p>
+  <p>ДДВ: 0.00</p>
+  <p>Вкупно (плаќа гостин): {{ cash_total }}</p>
+  <button onclick="window.print()">Печати готовинска</button>
+{% endblock %}

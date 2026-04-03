@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Шанк - Пијалаци</h1>
+  <ul>
+    {% for it in items %}
+      <li>Нарачка #{{ it.order.id }}: {{ it.product.name }} x {{ it.quantity }}</li>
+    {% endfor %}
+  </ul>
+  <p>Шанкерите немаат акаунт. Оваа страница може да се отвори од таблет/печатач кај шанк.</p>
+  <button onclick="window.print()">Печати марки</button>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Реал-Тајм Кујна - Пици</h1>
+  <ul id="pici-list"></ul>
+  <script>
+    async function fetchPici(){
+      const res = await fetch('{% url "api_pici" %}');
+      const data = await res.json();
+      const ul = document.getElementById('pici-list');
+      ul.innerHTML = '';
+      data.items.forEach(it => {
+        const li = document.createElement('li');
+        li.textContent = `Нарачка #${it.order_id}: ${it.product} x ${it.quantity}`;
+        ul.appendChild(li);
+      });
+    }
+    fetchPici();
+    setInterval(fetchPici, 3000); // polling every 3s
+  </script>
+{% endblock %}

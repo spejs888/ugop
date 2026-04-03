@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Админ панел — СПЕЈС</h1>
+  <p>Листа на сите нарачки</p>
+  <ul>
+    {% for order in orders %}
+      <li>
+        Нарачка #{{ order.id }} - Маса {{ order.table_number }} - Келнер {{ order.waiter.username }} - Статус {{ order.get_status_display }}
+        <a href="{% url 'order_detail' order.id %}">Погледни</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

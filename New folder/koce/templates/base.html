@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}СПЕЈС{% endblock %}</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header>
+    <nav class="container">
+      <a href="/">СПЕЈС</a>
+      {% if user.is_authenticated %}
+        Здраво, {{ user.username }} | <a href="{% url 'logout' %}">Одјави се</a>
+      {% else %}
+        <a href="{% url 'login' %}">Најави се</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main class="container">
+    {% if messages %}
+      <ul>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="container">
+    <small>&copy; СПЕЈС</small>
+  </footer>
+</body>
+</html>
